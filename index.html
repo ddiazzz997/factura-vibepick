@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Factura VBP-2026-0042 · Vibepick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --zinc-950: #09090b;
+    --zinc-900: #18181b;
+    --zinc-850: #1f1f23;
+    --zinc-400: #a1a1aa;
+    --zinc-500: #71717a;
+    --violet: #a78bfa;
+    --blue:   #0066ff;
+    --sky:    #0ea5e9;
+    --white:  #ffffff;
+    --border: rgba(255,255,255,0.08);
+    --cta: linear-gradient(135deg, #0066ff 0%, #0ea5e9 100%);
+    --glow: radial-gradient(ellipse at top right, rgba(167,139,250,0.18) 0%, transparent 70%);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--zinc-950);
+    color: var(--white);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 14mm 14mm 12mm;
+    background: var(--zinc-950);
+    background-image: var(--glow);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* --- Header --- */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-mark {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: var(--cta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    box-shadow: 0 4px 24px rgba(0,102,255,0.25);
+  }
+  .brand-name {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .brand-tag {
+    font-size: 11px;
+    color: var(--zinc-400);
+    margin-top: 2px;
+  }
+  .doc-meta {
+    text-align: right;
+  }
+  .doc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--violet);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .doc-number {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 2px;
+    letter-spacing: -0.01em;
+  }
+  .doc-dates {
+    font-size: 11px;
+    color: var(--zinc-400);
+    margin-top: 6px;
+  }
+  .doc-dates strong { color: var(--white); font-weight: 500; }
+
+  /* --- Parties --- */
+  .parties {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .card {
+    background: var(--zinc-850);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+  }
+  .card .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--zinc-400);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .card .name {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .card .lines {
+    margin-top: 4px;
+    color: var(--zinc-400);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  .card .lines .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--white);
+  }
+
+  /* --- Items --- */
+  .items {
+    background: var(--zinc-850);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 6px 8px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--zinc-400);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: left;
+    padding: 10px 10px 10px;
+  }
+  thead th.num { text-align: right; }
+  tbody td {
+    padding: 11px 10px;
+    border-top: 1px solid var(--border);
+    font-size: 12.5px;
+    vertical-align: top;
+  }
+  tbody td.num {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+  }
+  .item-cell {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .bullet {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--cta);
+    flex-shrink: 0;
+    margin-top: 1px;
+    box-shadow: 0 2px 10px rgba(14,165,233,0.35);
+    position: relative;
+  }
+  .bullet::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: var(--zinc-850);
+  }
+  .item-title {
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .item-desc {
+    color: var(--zinc-400);
+    font-size: 11.5px;
+    margin-top: 2px;
+    line-height: 1.45;
+  }
+
+  /* --- Totals --- */
+  .totals-row {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 12px;
+  }
+  .note {
+    background: var(--zinc-850);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+    font-size: 11.5px;
+    color: var(--zinc-400);
+  }
+  .note strong { color: var(--white); font-weight: 500; }
+  .totals {
+    background: var(--zinc-850);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+  }
+  .totals .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 12.5px;
+    color: var(--zinc-400);
+  }
+  .totals .row span:last-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    color: var(--white);
+  }
+  .totals .grand {
+    margin-top: 8px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--cta);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 6px 24px rgba(0,102,255,0.25);
+  }
+  .totals .grand .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+  }
+  .totals .grand .amount {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  /* --- Payment --- */
+  .payment {
+    background: var(--zinc-850);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+  .payment .field .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--zinc-400);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .payment .field .v {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--white);
+    font-weight: 500;
+    word-break: break-all;
+  }
+
+  /* --- Footer --- */
+  footer {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--zinc-500);
+    font-size: 10.5px;
+  }
+  footer .thanks {
+    color: var(--violet);
+    font-weight: 500;
+  }
+
+  @media print {
+    @page { size: A4; margin: 0; }
+    html, body { background: var(--zinc-950); }
+    .page { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <header>
+      <div class="brand">
+        <div class="brand-mark">V</div>
+        <div>
+          <div class="brand-name">Vibepick</div>
+          <div class="brand-tag">Crea tu sitio web con IA en 8 pasos.</div>
+        </div>
+      </div>
+      <div class="doc-meta">
+        <div class="doc-label">Factura</div>
+        <div class="doc-number">VBP-2026-0042</div>
+        <div class="doc-dates">
+          Emitida <strong>27 abr 2026</strong> · Vence <strong>27 may 2026</strong>
+        </div>
+      </div>
+    </header>
+
+    <section class="parties">
+      <div class="card">
+        <div class="eyebrow">Emisor</div>
+        <div class="name">Daniel Diaz · Vibepick</div>
+        <div class="lines">
+          Calle de la Innovación 42, 3º B<br/>
+          28013 Madrid, España<br/>
+          NIF · <span class="mono">B-12345678</span><br/>
+          ddiaz.consultor.ia@gmail.com
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">Facturar a</div>
+        <div class="name">The Coca-Cola Company</div>
+        <div class="lines">
+          One Coca-Cola Plaza NW<br/>
+          Atlanta, GA 30313, USA<br/>
+          Tax ID · <span class="mono">US-58-0628465</span><br/>
+          accounts.payable@coca-cola.com
+        </div>
+      </div>
+    </section>
+
+    <section class="items">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:55%">Concepto</th>
+            <th class="num" style="width:10%">Cant.</th>
+            <th class="num" style="width:17%">Precio</th>
+            <th class="num" style="width:18%">Importe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="item-cell">
+                <span class="bullet"></span>
+                <div>
+                  <div class="item-title">Diseño y generación del sitio con IA</div>
+                  <div class="item-desc">Discovery de marca, prompt maestro y generación del sitio en 8 pasos.</div>
+                </div>
+              </div>
+            </td>
+            <td class="num">1</td>
+            <td class="num">4 800,00 €</td>
+            <td class="num">4 800,00 €</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="item-cell">
+                <span class="bullet"></span>
+                <div>
+                  <div class="item-title">Integración Daniel AI · onboarding conversacional</div>
+                  <div class="item-desc">Asistente embebido para guiar al equipo de marketing en la creación de campañas.</div>
+                </div>
+              </div>
+            </td>
+            <td class="num">1</td>
+            <td class="num">2 600,00 €</td>
+            <td class="num">2 600,00 €</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="item-cell">
+                <span class="bullet"></span>
+                <div>
+                  <div class="item-title">Soporte premium · 3 meses</div>
+                  <div class="item-desc">Slack compartido, revisión semanal y mejoras continuas de prompts.</div>
+                </div>
+              </div>
+            </td>
+            <td class="num">3</td>
+            <td class="num">600,00 €</td>
+            <td class="num">1 800,00 €</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="totals-row">
+      <div class="note">
+        <strong>Notas.</strong> Importes en EUR. Pago a 30 días desde la fecha de emisión por transferencia bancaria. Indicar el número de factura como concepto. Cualquier duda, escríbeme y la resolvemos al momento.
+      </div>
+      <div class="totals">
+        <div class="row"><span>Subtotal</span><span>9 200,00 €</span></div>
+        <div class="row"><span>IVA (21%)</span><span>1 932,00 €</span></div>
+        <div class="grand">
+          <span class="label">Total a pagar</span>
+          <span class="amount">11 132,00 €</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="payment">
+      <div class="field">
+        <div class="k">Banco</div>
+        <div class="v">Banco Santander</div>
+      </div>
+      <div class="field">
+        <div class="k">IBAN</div>
+        <div class="v">ES76 0049 1500 0123 4567 8901</div>
+      </div>
+      <div class="field">
+        <div class="k">SWIFT / BIC</div>
+        <div class="v">BSCHESMMXXX</div>
+      </div>
+    </section>
+
+    <footer>
+      <span>Vibepick · VBP-2026-0042 · Documento oficial</span>
+      <span class="thanks">Gracias por confiar en Vibepick.</span>
+    </footer>
+
+  </div>
+</body>
+</html>
