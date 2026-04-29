@@ -5,14 +5,16 @@
 <title>Factura VBP-2026-0042 · Vibepick</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg:      #09090b;
-    --muted:   #a1a1aa;
-    --border:  rgba(255,255,255,0.08);
-    --violet:  #a78bfa;
-    --cta:     linear-gradient(135deg, #0066ff 0%, #0ea5e9 100%);
+    --blue-deep: #001540;
+    --blue:      #0066ff;
+    --sky:       #0ea5e9;
+    --violet:    #a78bfa;
+    --white:     #ffffff;
+    --muted:     rgba(255,255,255,0.65);
+    --border:    rgba(255,255,255,0.18);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,8 +22,8 @@
   @page { size: A4; margin: 0; }
 
   html, body {
-    background: var(--bg);
-    color: #fff;
+    background: var(--blue);
+    color: var(--white);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     font-size: 12.5px;
     line-height: 1.5;
@@ -35,8 +37,9 @@
     padding: 22mm 20mm;
     margin: 0 auto;
     background:
-      radial-gradient(ellipse at top right, rgba(167,139,250,0.16) 0%, transparent 55%),
-      var(--bg);
+      radial-gradient(ellipse at top right, rgba(167,139,250,0.30) 0%, transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(14,165,233,0.22) 0%, transparent 50%),
+      linear-gradient(160deg, var(--blue-deep) 0%, var(--blue) 100%);
     display: flex;
     flex-direction: column;
     gap: 22px;
@@ -46,26 +49,26 @@
   header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
   }
   .logo {
-    font-size: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo svg { height: 28px; width: auto; display: block; }
+  .logo .word {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 24px;
     font-weight: 700;
     letter-spacing: -0.02em;
-  }
-  .logo .dot {
-    display: inline-block;
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--cta);
-    margin-left: 3px;
-    transform: translateY(-1px);
+    color: var(--white);
   }
   .doc {
     text-align: right;
     font-family: 'JetBrains Mono', monospace;
   }
-  .doc .num { font-size: 13px; font-weight: 500; }
+  .doc .num { font-size: 13px; font-weight: 500; letter-spacing: 0.02em; }
   .doc .date { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
 
   .parties {
@@ -74,14 +77,21 @@
     gap: 28px;
   }
   .party .label {
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 10px;
     font-weight: 500;
     color: var(--muted);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.18em;
     margin-bottom: 6px;
   }
-  .party .name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .party .name {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    letter-spacing: -0.01em;
+  }
   .party .lines { color: var(--muted); font-size: 12px; line-height: 1.55; }
 
   .items { display: flex; flex-direction: column; }
@@ -97,9 +107,9 @@
   .item .bullet {
     width: 10px; height: 10px;
     border-radius: 50%;
-    background: var(--cta);
+    background: var(--white);
     align-self: center;
-    box-shadow: 0 0 0 4px rgba(14,165,233,0.12);
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.18);
   }
   .item .desc { font-size: 13px; font-weight: 500; }
   .item .amount {
@@ -111,23 +121,27 @@
 
   .total {
     margin-top: 4px;
-    padding: 14px 18px;
+    padding: 16px 20px;
     border-radius: 16px;
-    background: var(--cta);
+    background: var(--white);
+    color: var(--blue-deep);
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   .total .label {
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 500;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    color: var(--blue);
   }
   .total .amount {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   footer {
@@ -143,12 +157,13 @@
     line-height: 1.6;
   }
   footer .pay strong {
-    color: #fff;
+    color: var(--white);
     font-weight: 500;
     font-family: 'JetBrains Mono', monospace;
   }
   footer .thanks {
-    color: var(--violet);
+    color: var(--white);
+    font-family: 'Space Grotesk', sans-serif;
     font-weight: 500;
     font-size: 12px;
     white-space: nowrap;
@@ -159,7 +174,27 @@
   <div class="page">
 
     <header>
-      <div class="logo">Vibepick<span class="dot"></span></div>
+      <div class="logo">
+        <svg viewBox="0 0 64 56" xmlns="http://www.w3.org/2000/svg" aria-label="Vibepick">
+          <defs>
+            <linearGradient id="vGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="100%" stop-color="#bcd5ff"/>
+            </linearGradient>
+            <linearGradient id="vShade" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+              <stop offset="100%" stop-color="#7aa9ff" stop-opacity="0.9"/>
+            </linearGradient>
+          </defs>
+          <!-- V exterior -->
+          <path d="M2 6 L20 6 L32 38 L44 6 L62 6 L40 54 L24 54 Z" fill="url(#vGrad)"/>
+          <!-- Pliegue interior (efecto futurista) -->
+          <path d="M20 6 L32 38 L24 54 Z" fill="url(#vShade)" opacity="0.55"/>
+          <!-- Brillo superior -->
+          <path d="M2 6 L20 6 L18 11 L4 11 Z" fill="#ffffff" opacity="0.4"/>
+        </svg>
+        <span class="word">Vibepick</span>
+      </div>
       <div class="doc">
         <div class="num">VBP-2026-0042</div>
         <div class="date">27 abr 2026 · vence 27 may 2026</div>
