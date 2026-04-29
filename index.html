@@ -2,27 +2,28 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
-<title>Factura VBP-2026-0042 · Vibepick</title>
+<title>Factura {{ invoice_number }} · Vibepick</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --blue-deep: #001540;
-    --blue:      #0066ff;
-    --sky:       #0ea5e9;
-    --violet:    #a78bfa;
-    --white:     #ffffff;
-    --muted:     rgba(255,255,255,0.65);
-    --border:    rgba(255,255,255,0.18);
+    --bg-1:    #000000;
+    --bg-2:    #050b1f;
+    --blue:    #0066ff;
+    --sky:     #0ea5e9;
+    --violet:  #a78bfa;
+    --white:   #ffffff;
+    --muted:   rgba(255,255,255,0.62);
+    --border:  rgba(255,255,255,0.10);
+    --cta:     linear-gradient(135deg, #0066ff 0%, #0ea5e9 100%);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   @page { size: A4; margin: 0; }
 
   html, body {
-    background: #000000;
+    background: var(--bg-1);
     color: var(--white);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     font-size: 12.5px;
@@ -34,99 +35,172 @@
   .page {
     width: 210mm;
     height: 297mm;
-    padding: 22mm 20mm;
+    padding: 20mm 18mm;
     margin: 0 auto;
+    position: relative;
+    overflow: hidden;
     background:
-      radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,102,255,0.35) 0%, transparent 70%),
-      #000000;
+      radial-gradient(circle 240px at 8% 18%,  rgba(0,102,255,0.28) 0%, transparent 70%),
+      radial-gradient(circle 320px at 92% 8%,  rgba(14,165,233,0.22) 0%, transparent 70%),
+      radial-gradient(circle 280px at 78% 55%, rgba(167,139,250,0.18) 0%, transparent 70%),
+      radial-gradient(circle 220px at 14% 78%, rgba(0,102,255,0.30) 0%, transparent 70%),
+      radial-gradient(circle 180px at 50% 95%, rgba(14,165,233,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,30,90,0.55) 0%, transparent 75%),
+      var(--bg-1);
     display: flex;
     flex-direction: column;
     gap: 22px;
-    overflow: hidden;
   }
 
+  /* HEADER */
   header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  .logo {
+  .avatar {
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    background: #000;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 0 2px rgba(255,255,255,0.10),
+      0 0 0 4px rgba(0,102,255,0.55),
+      0 8px 28px rgba(0,102,255,0.35);
+  }
+  .avatar img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .logo-img { height: 56px; width: auto; display: block; }
+
+  /* DOC META */
+  .doc-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .issuer {
     display: flex;
     align-items: center;
     gap: 10px;
   }
-  .logo svg { height: 28px; width: auto; display: block; }
-  .logo .word {
-    font-family: 'Space Grotesk', 'Inter', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--white);
+  .issuer .name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
-  .doc {
+  .issuer .sep {
+    width: 1px; height: 20px;
+    background: var(--border);
+  }
+  .issuer .mark {
+    height: 22px;
+    opacity: 0.95;
+  }
+  .doc-num {
     text-align: right;
     font-family: 'JetBrains Mono', monospace;
   }
-  .doc .num { font-size: 13px; font-weight: 500; letter-spacing: 0.02em; }
-  .doc .date { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+  .doc-num .num { font-size: 13px; font-weight: 500; }
+  .doc-num .date { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
 
-  .parties {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
+  /* CLIENT */
+  .client {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    backdrop-filter: blur(2px);
   }
-  .party .label {
+  .client-avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--cta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,102,255,0.3);
+  }
+  .client-avatar img { width:100%; height:100%; object-fit:cover; }
+  .client-info .label {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 10px;
-    font-weight: 500;
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
-  .party .name {
-    font-family: 'Space Grotesk', 'Inter', sans-serif;
-    font-size: 15px;
+  .client-info .name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
     font-weight: 600;
-    margin-bottom: 2px;
     letter-spacing: -0.01em;
+    margin-bottom: 3px;
   }
-  .party .lines { color: var(--muted); font-size: 12px; line-height: 1.55; }
+  .client-info .addr {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
 
-  .items { display: flex; flex-direction: column; }
+  /* ITEMS */
+  .items-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 2px;
+  }
+  .items {
+    display: flex;
+    flex-direction: column;
+  }
   .item {
     display: grid;
-    grid-template-columns: 18px 1fr auto;
+    grid-template-columns: 22px 1fr auto;
     gap: 14px;
     padding: 14px 0;
     border-top: 1px solid var(--border);
-    align-items: baseline;
+    align-items: center;
   }
   .item:last-child { border-bottom: 1px solid var(--border); }
   .item .bullet {
-    width: 10px; height: 10px;
+    width: 12px; height: 12px;
     border-radius: 50%;
-    background: var(--white);
-    align-self: center;
-    box-shadow: 0 0 0 4px rgba(255,255,255,0.18);
+    background: var(--cta);
+    box-shadow: 0 0 0 4px rgba(0,102,255,0.18);
   }
-  .item .desc { font-size: 13px; font-weight: 500; }
+  .item .desc { font-size: 13.5px; font-weight: 500; }
   .item .amount {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 500;
     text-align: right;
   }
 
+  /* TOTAL */
   .total {
     margin-top: 4px;
-    padding: 16px 20px;
-    border-radius: 16px;
-    background: var(--white);
-    color: var(--blue-deep);
+    padding: 16px 22px;
+    border-radius: 18px;
+    background: var(--cta);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 8px 32px rgba(0,102,255,0.35);
   }
   .total .label {
     font-family: 'Space Grotesk', sans-serif;
@@ -134,15 +208,15 @@
     text-transform: uppercase;
     letter-spacing: 0.18em;
     font-weight: 600;
-    color: var(--blue);
   }
   .total .amount {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 600;
     letter-spacing: -0.01em;
   }
 
+  /* FOOTER */
   footer {
     margin-top: auto;
     padding-top: 16px;
@@ -173,73 +247,55 @@
   <div class="page">
 
     <header>
-      <div class="logo">
-        <svg viewBox="0 0 64 56" xmlns="http://www.w3.org/2000/svg" aria-label="Vibepick">
-          <defs>
-            <linearGradient id="vGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#ffffff"/>
-              <stop offset="100%" stop-color="#bcd5ff"/>
-            </linearGradient>
-            <linearGradient id="vShade" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
-              <stop offset="100%" stop-color="#7aa9ff" stop-opacity="0.9"/>
-            </linearGradient>
-          </defs>
-          <!-- V exterior -->
-          <path d="M2 6 L20 6 L32 38 L44 6 L62 6 L40 54 L24 54 Z" fill="url(#vGrad)"/>
-          <!-- Pliegue interior (efecto futurista) -->
-          <path d="M20 6 L32 38 L24 54 Z" fill="url(#vShade)" opacity="0.55"/>
-          <!-- Brillo superior -->
-          <path d="M2 6 L20 6 L18 11 L4 11 Z" fill="#ffffff" opacity="0.4"/>
-        </svg>
-        <span class="word">Vibepick</span>
+      <div class="avatar">
+        <img src="data:image/jpeg;base64,{{ profile_b64 }}" alt="Daniel" />
       </div>
-      <div class="doc">
-        <div class="num">VBP-2026-0042</div>
-        <div class="date">27 abr 2026 · vence 27 may 2026</div>
-      </div>
+      <img class="logo-img" src="data:image/png;base64,{{ logo_b64 }}" alt="Vibepick" />
     </header>
 
-    <section class="parties">
-      <div class="party">
-        <div class="label">De</div>
-        <div class="name">Daniel Diaz · Vibepick</div>
-        <div class="lines">
-          Calle de la Innovación 42, 28013 Madrid<br/>
-          NIF B-12345678
-        </div>
+    <div class="doc-meta">
+      <div class="issuer">
+        <span class="name">Daniel Diaz</span>
+        <span class="sep"></span>
+        <img class="mark" src="data:image/png;base64,{{ logo_b64 }}" alt="Vibepick" />
       </div>
-      <div class="party">
-        <div class="label">Para</div>
-        <div class="name">The Coca-Cola Company</div>
-        <div class="lines">
-          One Coca-Cola Plaza NW<br/>
-          Atlanta, GA 30313, USA
-        </div>
+      <div class="doc-num">
+        <div class="num">{{ invoice_number }}</div>
+        <div class="date">{{ date_emit }} · vence {{ date_due }}</div>
+      </div>
+    </div>
+
+    <section class="client">
+      <div class="client-avatar">
+        {% if client_photo_b64 %}
+          <img src="data:image/jpeg;base64,{{ client_photo_b64 }}" alt="{{ client_name }}" />
+        {% else %}
+          {{ client_initial }}
+        {% endif %}
+      </div>
+      <div class="client-info">
+        <div class="label">Facturar a</div>
+        <div class="name">{{ client_name }}</div>
+        <div class="addr">{{ client_address | safe }}</div>
       </div>
     </section>
 
-    <section class="items">
-      <div class="item">
-        <span class="bullet"></span>
-        <span class="desc">Diseño y generación del sitio con IA · 8 pasos</span>
-        <span class="amount">4 800,00 €</span>
-      </div>
-      <div class="item">
-        <span class="bullet"></span>
-        <span class="desc">Integración Daniel AI · onboarding conversacional</span>
-        <span class="amount">2 600,00 €</span>
-      </div>
-      <div class="item">
-        <span class="bullet"></span>
-        <span class="desc">Soporte premium · 3 meses</span>
-        <span class="amount">1 800,00 €</span>
-      </div>
-    </section>
+    <div>
+      <div class="items-title">Servicios</div>
+      <section class="items">
+        {% for item in items %}
+        <div class="item">
+          <span class="bullet"></span>
+          <span class="desc">{{ item.desc }}</span>
+          <span class="amount">{{ item.amount_fmt }}</span>
+        </div>
+        {% endfor %}
+      </section>
+    </div>
 
     <div class="total">
       <span class="label">Total · IVA 21% incluido</span>
-      <span class="amount">11 132,00 €</span>
+      <span class="amount">{{ total_fmt }}</span>
     </div>
 
     <footer>
